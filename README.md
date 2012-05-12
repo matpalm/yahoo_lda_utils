@@ -6,8 +6,9 @@ I've found though to understand the topics it generates it's useful to have some
 
 # Dependencies
 
-These helpers are a mix of python and c++. I wrote everything in python but then rewrote the slow ones in c++. The c++ ones build with cmake and depend on boost.
+These helpers are a mix of python and c++. I wrote everything in python but then rewrote the slow ones in c++. Uses [boost](http://www.boost.org/).
 
+    sudo apt-get install libboost-all-dev
     cmake .
     make # builds straight into bin
 
@@ -18,7 +19,7 @@ The input format for YahooLDA is
     $ cat documents
     primary_id secondary_id token token token ...
 
-To do a simple normalisation (downcase and remove all tokens with len < 3 and without at least one alpha numeric)
+To do a simple normalisation (downcase and remove all tokens with len < 3 and without at least one alpha numeric) use `lda_prep`
 
     $ cat documents | bin/lda_prep > documents.normalised
 
