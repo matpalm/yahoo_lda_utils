@@ -98,7 +98,7 @@ Eg the following shows that topics 58 and 17 have the most mass whereas 42 and 9
     42	71.94400991
     92  67.45150241
 
-On a large corpus you can sample to get a representative result (eg using awk to take every 1000th)
+On a large corpus you can sample to get a representative result (eg using awk to take every 1000th document)
 
     $ cat lda.docToTop.txt | awk 'NR%1000==0' | bin/mass_per_topic.py | sort -k2 -nr
 
@@ -124,7 +124,7 @@ Eg to see the top documents for topic 10 run ...
     0.885886 a7212ee57e42aec1b994002f3498ac51 2012-01-24T10:39:18 Create a Grunge & textured mixed Collage in Photoshop ...
     ...
 
-As before for a very large corpus you can sample lda.docToTop.txt to lessen the memory used by bin/top_docs_for_topic.py
+As before for a very large corpus you can sample `lda.docToTop.txt` to lessen the memory used by `top_docs_for_topic`
 
 
 
