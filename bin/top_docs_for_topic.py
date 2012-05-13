@@ -18,7 +18,7 @@ target_topic = int(sys.argv[1])
 # parse top docs
 top_docs = []  # ( doc_id, prob of topic )
 for line in open(sys.argv[2]):
-    primary_id, secondary_id, topic_probs = docToTop.split(line)
+    primary_id, secondary_id, topic_probs = docToTop.parse(line)
     for topic, prob in topic_probs:
         if topic == target_topic:
             heappush(top_docs, (-float(prob), primary_id)) # -ve since we want top values in heap

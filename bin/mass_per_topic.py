@@ -9,7 +9,7 @@ import docToTop
 total_mass = defaultdict(float)
 
 for line in sys.stdin: 
-    id1, id2, topic_probs = docToTop.split(line)
+    id1, id2, topic_probs = docToTop.parse(line)
     for topic, prob in topic_probs:
         total_mass[topic] += prob
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env
 import re
 
-def split(line):
+def parse(line):
     primary_id, secondary_id, topics = line.strip().split("\t")
     topic_prob_pairs = re.sub("[\(\)]","",topics).split(" ")
     topic_probs = []

@@ -88,33 +88,38 @@ Word to Topic mapping, one line per document.
 
 ### topic prob mass per topic
 
-to examine the sum of topic probabilities
+To examine the sum of topic probabilities use `mass_per_topic`. 
+It outputs for each topic the total mass assigned to the topic from across the documents.
+Eg the following shows that topics 58 and 17 have the most mass whereas 42 and 92 are hardly represented at all.
 
     $ cat lda.docToTop.txt | bin/mass_per_topic.py | sort -k2 -nr
-
-eg the following output (the first and last two lines of the output) tells us topics 58 and 17 have the most mass whereas 42 and 92 are hardly represented at all.
-
     58	1795.96650244
     17  1673.9486237
     ...
     42	71.94400991
     92  67.45150241
 
+### top topics for word
+
+To examine which tokens are strongest for a particular topic use `top_topics_for_word.py`. 
+It outputs the top probabilities along with the corresponding topic ids for specified token. 
+Eg to see which topics are strongest for the token 'time' run ...
+
+    $ bin/top_topics_for_word.py time lda.topToWor.txt 
+    0.106124 58
+    0.0999629 4
+    ...
+
 ### top docs for a topic
 
-to examine which documents are strongest for a particular topic see `top_docs_for_topic.py`
-
-eg to see the top docs for topic 10 run
+To examine which documents are strongest for a particular topic use `top_docs_for_topic.py`. 
+It outputs the topic probability along with the full document. 
+Eg to see the top documents for topic 10 run ...
 
     $ bin/top_docs_for_topic.py 10 lda.docToTop.txt documents.chopped | sort -nr
-
-Which outputs the probability for the topic with the document
-
     0.88835  77a7e6a3dfda7bdfed9151f17ce8472c 2012-01-22T08:45:00 Iwa Moto wants to make a comeback : ...
     0.885886 a7212ee57e42aec1b994002f3498ac51 2012-01-24T10:39:18 Create a Grunge & textured mixed Collage in Photoshop ...
     ...
-
-
 
 
 
