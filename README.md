@@ -37,11 +37,47 @@ found this to give reasonable results) TODO: rewrite upper/lower based on absolu
 Additionally you might have specially marked up tokens that you want to retain regardless of their frequency. If so run with `--keep`.
 Eg to retain all tokens starting with `foo` you can run
 
-    $ bin/chop_most_least_freq --input documents --lower 0.001 --upper 0.3 --keep foo > documents.chopped
+    $ bin/chop_most_least_freq --input documents.normalised --lower 0.001 --upper 0.3 --keep foo > documents.chopped
 
 ( This app requires two passes over the data so doesn't accept STDIN )
 
+# Output helpers
 
+`learntopics` produces a few useful output files
+
+### lda.docToTop.txt
+
+Document to Topic mapping, one line per document.
+
+    <primary_id> <secondary_id> (<topic_id>, <weight>) (<topic_id>, <weight>) ...
+
+### lda.topToWor.txt
+
+Topic to Word mapping, one line per topic.
+
+    Topic <N>: (<token>, <weight>) (<token>, <weight>) ...
+
+### lda.worToTop.txt
+
+Word to Topic mapping, one line per document.
+
+    <primary_id> <secondary_id> (<token>, <topic_id>) (<token>, <topic_id>) 
+
+## Helpers
+
+### topic prob mass per topic
+
+to examine the sum of topic probabilities
+
+    cat lda.docToTop.txt | bin/mass_per_topic.py | sort -k2 -nr
+
+eg the following output (the first and last two lines of the output) tells us topics 58 and 17 have the most mass whereas 42 and 92 are hardly represented at all.
+
+    58	1795.96650244
+    17  1673.9486237
+    ...
+    42	71.94400991
+    92  67.45150241
 
 
 
