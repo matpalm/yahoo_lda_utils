@@ -1,12 +1,11 @@
 # Intro
 
-[Yahoo LDA](https://github.com/shravanmn/Yahoo_LDA) is my fav [LDA](http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) implementation at the moment. 
-
-I've found though to understand the topics it generates it's useful to have some helper scripts, like these...
+[Yahoo LDA](https://github.com/shravanmn/Yahoo_LDA) is my fav [LDA](http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) implementation at the moment but 
+I've found though to understand the topics it generates it's useful to have some helper scripts. Here they are...
 
 # Dependencies
 
-These helpers are a mix of python and c++. I wrote everything in python but then rewrote the slow ones in c++. Uses [boost](http://www.boost.org/).
+It's a mix of python and c++. (I wrote it all in python but go bored waiting for large files to be processed) The c++ stuff requires some building...
 
     sudo apt-get install libboost-all-dev
     cmake .
@@ -31,7 +30,7 @@ To do a simple normalisation (downcase and remove all tokens with len < 3 and wi
 
 Sometimes you'll get better results by chopping the most/least frequent terms. A simple version of this can be done with `chop_most_least_freq`
 
-    $ bin/chop_most_least_freq --input documents --lower 0.001 --upper 0.3 > documents.chopped
+    $ bin/chop_most_least_freq --input documents.normalised --lower 0.001 --upper 0.3 > documents.chopped
 
 This removes all tokens that don't appear in at least 0.1% of documents or appear in more than 30% of documents. (For a zipfian distribution of tokens I've
 found this to give reasonable results) TODO: rewrite upper/lower based on absolute freq of tokens rather than number of documents to make it distribution agnostic)
@@ -45,7 +44,7 @@ Eg to retain all tokens starting with `foo` you can run
 
 # Running YahooLDA
 
-For completeness you can run YahooLDA using `formatter` and `learntopics`
+(For completeness) You run YahooLDA using `formatter` and `learntopics`
 
     $ formatter < documents.chopped
     $ learntopics --topics 100 --iter=100
@@ -99,6 +98,10 @@ Eg the following shows that topics 58 and 17 have the most mass whereas 42 and 9
     42	71.94400991
     92  67.45150241
 
+On a large corpus you can sample to get a representative result (eg using awk to take every 1000th)
+
+    $ cat lda.docToTop.txt | awk 'NR%1000==0' | bin/mass_per_topic.py | sort -k2 -nr
+
 ### top topics for word
 
 To examine which tokens are strongest for a particular topic use `top_topics_for_word.py`. 
@@ -116,11 +119,12 @@ To examine which documents are strongest for a particular topic use `top_docs_fo
 It outputs the topic probability along with the full document. 
 Eg to see the top documents for topic 10 run ...
 
-    $ bin/top_docs_for_topic.py 10 lda.docToTop.txt documents.chopped | sort -nr
+    $ cat lda.docToTop.txt | bin/top_docs_for_topic.py 10 documents.chopped  | sort -nr
     0.88835  77a7e6a3dfda7bdfed9151f17ce8472c 2012-01-22T08:45:00 Iwa Moto wants to make a comeback : ...
     0.885886 a7212ee57e42aec1b994002f3498ac51 2012-01-24T10:39:18 Create a Grunge & textured mixed Collage in Photoshop ...
     ...
 
+As before for a very large corpus you can sample lda.docToTop.txt to lessen the memory used by bin/top_docs_for_topic.py
 
 
 
