@@ -10,4 +10,10 @@ ADD_EXECUTABLE(bin/lda_prep
                src/lda_prep
                )
 
+ADD_EXECUTABLE(bin/chop_most_least_freq
+               src/chop_most_least_freq
+               )
+
 TARGET_LINK_LIBRARIES(bin/lda_prep boost_system)
+
+TARGET_LINK_LIBRARIES(bin/chop_most_least_freq boost_system boost_program_options)

@@ -3,3 +3,4 @@ CMakeFiles
 CMakeCache.txt
 Makefile
 bin/lda_prep
+bin/chop_most_least_freq
