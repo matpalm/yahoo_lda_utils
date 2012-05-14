@@ -32,7 +32,7 @@ for i in xrange(0, 10):
 
 # now grep document looking for these 10 ids
 for line in open(sys.argv[2]):
-    primary_id = line.split("\t")[0]
+    primary_id = line.split(" ")[0]
     if primary_id in primary_ids:
         sys.stdout.write("%s\t%s" % (primary_id_to_prob[primary_id], line))
         primary_ids.remove(primary_id)
