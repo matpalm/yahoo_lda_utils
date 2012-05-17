@@ -29,7 +29,7 @@ top_docs = []  # ( doc_id, prob of topic )
 for line in stdin:
     primary_id, secondary_id, topic_probs = docToTop.parse(line)
     for topic, prob in topic_probs:
-        if topic == target_topic and prob > float(options.min_prob):
+        if topic == target_topic and prob >= float(options.min_prob):
             heappush(top_docs, (-float(prob), primary_id)) # -ve since we want top values in heap
 
 if not top_docs:
