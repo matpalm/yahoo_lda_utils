@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # output total probability mass per topic
-# usage: cat mass_per_topic.py < lda.docToTop.txt 
+# usage: mass_per_topic.py < lda.docToTop.txt 
 
 import sys
 from collections import defaultdict
