@@ -6,8 +6,8 @@
 using namespace std;
 
 bool has_at_least_one_alpha_numeric(string &token) {
-    for(string::iterator it=token.begin(); it!=token.end(); ++it)
-        if (isalnum(*it))
+    for(auto& ch : token)
+        if (isalnum(ch))
             return true;
     return false;
 }

@@ -70,8 +70,9 @@ int main(int argc, char **argv)
              istream_iterator<string>(),
              inserter(tokens, tokens.begin()));
         // count tokens
-        for (s_s::iterator it=tokens.begin(); it!=tokens.end(); ++it)
-            ++token_document_freq[*it];
+        //for (set<string>::const_iterator it=tokens.begin(); it!=tokens.end(); ++it)
+        for (auto& token : tokens)
+            ++token_document_freq[token];
         // track number docs
         ++num_docs;
     }
@@ -94,13 +95,13 @@ int main(int argc, char **argv)
     unsigned int num_special_tokens = 0;
     cerr << "first pass to count tokens" << endl;
     const bool have_keep_token = keep_token.length() > 0;
-    for(m_s_ui::iterator it=token_document_freq.begin(); it!=token_document_freq.end(); ++it) {
-        if (have_keep_token && boost::starts_with(it->first, keep_token)) {
-            tokens_to_keep.insert(it->first);
+    for(auto& it : token_document_freq) {
+        if (have_keep_token && boost::starts_with(it.first, keep_token)) {
+            tokens_to_keep.insert(it.first);
             ++num_special_tokens;
         }
-        else if (it->second >= lower_bound && it->second <= upper_bound) {
-            tokens_to_keep.insert(it->first);
+        else if (it.second >= lower_bound && it.second <= upper_bound) {
+            tokens_to_keep.insert(it.first);
             ++num_tokens_to_keep;
         }
         else {
