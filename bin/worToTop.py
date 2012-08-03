@@ -3,13 +3,15 @@ import re
 from collections import defaultdict
 from numpy.linalg import *
 
+WORD_TOPIC_PAIR_RE = re.compile("(.*),(\d*)")
+
 def parse(line):
     primary_id, secondary_id, topics = line.strip().split("\t")
     word_topic_pairs = re.sub("[\(\)]","",topics).split(" ")
     # collect topics
     topics = defaultdict(int)
     for pair in word_topic_pairs:
-        word, topic = pair.split(",")
+        word, topic = re.match(WORD_TOPIC_PAIR_RE, pair).groups()
         topics[topic] += 1
     # normalise (with cumsum chop at 0.99)
     magnitude = norm(topics.values())
