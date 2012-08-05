@@ -126,6 +126,34 @@ Eg to see the top documents for topic 10 run ...
 
 As before for a very large corpus you can sample `lda.docToTop.txt` to lessen the memory used by `top_docs_for_topic`
 
+### topic freqs 
+
+Dump a list of topics frequencies per document (like a more complete version of lda.docToTop.txt)
+
+    $ head -n1 lda.worToTop.txt 
+    3       3       (a,413) (b,198) (c,60) (d,198) (e,290) (f,198) (g,198) (h,290)
+
+    $ head -n1 lda.worToTop.txt | worToTop_to_topics.py 
+    3   3 60   1.000000000000000
+    3   3 198  4.000000000000000
+    3   3 290  2.000000000000000
+    3   3 413  1.000000000000000
+
+Optionally with l2 normalisation
+
+    $ head -n1 lda.worToTop.txt | worToTop_to_topics.py --normalise True
+    3   3 60   0.213200716355610
+    3   3 198  0.852802865422442
+    3   3 290  0.426401432711221
+    3   3 413  0.213200716355610
+
+And with cumsum chop (ie cut back to a particular magnitude)
+
+    $ head -n1 lda.worToTop.txt | worToTop_to_topics.py --normalise True --chop 0.9
+    3   3	 198			 0.852802865422442
+    3   3	 290			 0.426401432711221
+
+
 
 
 
